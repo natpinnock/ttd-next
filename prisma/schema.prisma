@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model group {
+  id               String   @id @db.Uuid
+  groupName        String   @db.VarChar
+  numberOfStudents String?  @db.VarChar
+  notes            String?  @db.VarChar
+  userId           String   @db.VarChar
+  lesson           lesson[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model lesson {
+  id         String   @id @db.Uuid
+  userId     String   @db.VarChar
+  groupName  String   @db.VarChar
+  title      String   @db.VarChar
+  date       DateTime @db.Date
+  time       DateTime @db.Time(6)
+  lessonPlan String?  @db.VarChar
+  groupId    String?  @db.Uuid
+  group      group?   @relation(fields: [groupId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
