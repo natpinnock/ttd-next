@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { group } from "@prisma/client";
 
 export default function Groups() {
-  const { user } = useUser();
   const [groups, setGroups] = useState([] as group[]);
   useEffect(() => {
     fetch("/api/groups")

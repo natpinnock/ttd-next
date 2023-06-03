@@ -8,12 +8,12 @@ export async function GET() {
   if (!userId) {
     return new Response("Unauthorized", { status: 401 });
   }
-  const groups = await prisma.group.findMany({
+  const lessons = await prisma.lesson.findMany({
     where: {
       userId,
     },
   });
-  return new Response(JSON.stringify(groups));
+  return new Response(JSON.stringify(lessons));
 }
 
 export async function POST(request: NextRequest) {
@@ -21,16 +21,19 @@ export async function POST(request: NextRequest) {
   if (!userId) {
     return new Response("Unauthorized", { status: 401 });
   }
-  const { groupName, numberOfStudents, notes } = await request.json();
-  const group = await prisma.group.create({
+  const { title, dateTime, groupName, lessonPlan, groupId } =
+    await request.json();
+  const lesson = await prisma.lesson.create({
     data: {
       id: uuidv4(),
       userId,
+      groupId,
       groupName,
-      numberOfStudents,
-      notes,
+      title,
+      dateTime,
+      lessonPlan,
     },
   });
 
-  return new Response(JSON.stringify(group));
+  return new Response(JSON.stringify(lesson));
 }
