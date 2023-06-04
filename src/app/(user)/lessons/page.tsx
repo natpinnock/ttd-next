@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { lesson } from "@prisma/client";
 import AddLessonModal from "@/components/AddLessonModal";
+import LessonCard from "@/components/LessonCard";
 
 export default function Lessons() {
   const [open, setOpen] = useState(false);
@@ -18,11 +19,13 @@ export default function Lessons() {
     <>
       <div>
         <h1>Lessons </h1>
-        <ul>
-          {lessons.map((lesson) => (
-            <li key={lesson.id}>{lesson.title}</li>
-          ))}
-        </ul>
+        <div className="m-4">
+          <ul className="grid grid-cols-4 gap-4">
+            {lessons.map((lesson) => (
+              <LessonCard key={lesson.id} lesson={lesson} />
+            ))}
+          </ul>
+        </div>
       </div>
 
       <button onClick={() => setOpen(true)}>Add a Lesson</button>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { group } from "@prisma/client";
 import AddGroupModal from "@/components/AddGroupModal";
+import GroupCard from "@/components/GroupCard";
 
 export default function Groups() {
   const [open, setOpen] = useState(false);
@@ -21,11 +22,13 @@ export default function Groups() {
     <>
       <div>
         <h1>Groups</h1>
-        <ul>
-          {groups.map((group) => (
-            <li key={group.id}>{group.groupName}</li>
-          ))}
-        </ul>
+        <div className="m-4">
+          <ul className="grid grid-cols-4 gap-4">
+            {groups.map((group) => (
+              <GroupCard key={group.id} group={group} />
+            ))}
+          </ul>
+        </div>
       </div>
 
       <button onClick={() => setOpen(true)}>Add a group</button>
