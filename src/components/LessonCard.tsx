@@ -1,6 +1,12 @@
 import { lesson } from "@prisma/client";
+import { TrashIcon } from "lucide-react";
 
-export default function LessonCard({ lesson }: { lesson: lesson }) {
+interface ModalProps {
+  lesson: lesson;
+  deleteLesson: (id: string) => void;
+}
+
+export default function LessonCard({ lesson, deleteLesson }: ModalProps) {
   return (
     <div>
       <a
@@ -24,6 +30,10 @@ export default function LessonCard({ lesson }: { lesson: lesson }) {
           </svg>
 
           <h3 className="text-3xl font-bold sm:text-4xl">{lesson.title}</h3>
+          <TrashIcon
+            className="h-6 w-6 text-gray-500 ml-auto"
+            onClick={() => deleteLesson(lesson.id)}
+          />
         </div>
 
         <p className="mt-4 font-medium text-gray-500">
