@@ -1,12 +1,15 @@
 import { group } from "@prisma/client";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+import EditGroupModal from "./EditGroupModal";
 
-interface ModalProps {
+interface GroupCardProps {
   group: group;
   deleteGroup: (id: string) => void;
 }
 
-export default function GroupCard({ group, deleteGroup }: ModalProps) {
+export default function GroupCard({ group, deleteGroup }: GroupCardProps) {
+  const [open, setOpen] = useState(false);
   return (
     <div>
       <a
@@ -30,6 +33,11 @@ export default function GroupCard({ group, deleteGroup }: ModalProps) {
           </svg>
 
           <h3 className="text-3xl font-bold sm:text-4xl">{group.groupName}</h3>
+          <PencilSquareIcon
+            className="h-6 w-6 text-gray-500 ml-auto"
+            onClick={() => setOpen(true)}
+          />
+          {open && <EditGroupModal setOpen={setOpen} group={group} />}
           <TrashIcon
             className="h-6 w-6 text-gray-500 ml-auto"
             onClick={() => deleteGroup(group.id)}

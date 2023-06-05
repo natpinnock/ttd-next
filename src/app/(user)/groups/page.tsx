@@ -29,7 +29,7 @@ export default function Groups() {
     fetch("/api/groups")
       .then((response) => response.json())
       .then((data) => setGroups(data));
-  }, [open]);
+  }, [open, groups]);
 
   return (
     <>

@@ -49,3 +49,23 @@ export async function DELETE(request: NextRequest) {
   });
   return new Response(JSON.stringify(group));
 }
+
+export async function PATCH(request: NextRequest) {
+  const { userId } = auth();
+  if (!userId) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
+  const { id, groupName, numberOfStudents, notes } = await request.json();
+  const group = await prisma.group.update({
+    where: {
+      id,
+    },
+    data: {
+      groupName,
+      numberOfStudents,
+      notes,
+    },
+  });
+  return new Response(JSON.stringify(group));
+}
