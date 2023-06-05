@@ -34,3 +34,18 @@ export async function POST(request: NextRequest) {
 
   return new Response(JSON.stringify(group));
 }
+
+export async function DELETE(request: NextRequest) {
+  const { userId } = auth();
+  if (!userId) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
+  const { id } = await request.json();
+  const group = await prisma.group.delete({
+    where: {
+      id,
+    },
+  });
+  return new Response(JSON.stringify(group));
+}

@@ -26,5 +26,5 @@ model lesson {
   dateTime   DateTime @db.Timestamp(6)
   lessonPlan String?  @db.VarChar
   groupId    String?  @db.Uuid
-  group      group?   @relation(fields: [groupId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  group      group?   @relation(fields: [groupId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

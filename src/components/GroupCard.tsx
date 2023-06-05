@@ -1,6 +1,12 @@
 import { group } from "@prisma/client";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
-export default function GroupCard({ group }: { group: group }) {
+interface ModalProps {
+  group: group;
+  deleteGroup: (id: string) => void;
+}
+
+export default function GroupCard({ group, deleteGroup }: ModalProps) {
   return (
     <div>
       <a
@@ -24,6 +30,10 @@ export default function GroupCard({ group }: { group: group }) {
           </svg>
 
           <h3 className="text-3xl font-bold sm:text-4xl">{group.groupName}</h3>
+          <TrashIcon
+            className="h-6 w-6 text-gray-500 ml-auto"
+            onClick={() => deleteGroup(group.id)}
+          />
         </div>
 
         <p className="mt-4 font-medium text-gray-500">
