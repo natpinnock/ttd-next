@@ -78,7 +78,7 @@ export default function EditGroupModal({ setOpen, group }: EditModalProps) {
           value={editGroup.notes === null ? "" : editGroup.notes}
           onChange={handleChange}
         />
-        <button type="submit">Add</button>
+        <button type="submit">Edit</button>
       </form>
     </div>
   );

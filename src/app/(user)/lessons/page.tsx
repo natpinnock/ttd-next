@@ -29,7 +29,7 @@ export default function Lessons() {
     fetch("/api/lessons")
       .then((response) => response.json())
       .then((data) => setLessons(data));
-  }, [open]);
+  }, [open, lessons]);
 
   return (
     <>

@@ -1,5 +1,8 @@
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { lesson } from "@prisma/client";
 import { TrashIcon } from "lucide-react";
+import { useState } from "react";
+import EditLessonModal from "./EditLessonModal";
 
 interface ModalProps {
   lesson: lesson;
@@ -7,6 +10,7 @@ interface ModalProps {
 }
 
 export default function LessonCard({ lesson, deleteLesson }: ModalProps) {
+  const [open, setOpen] = useState(false);
   return (
     <div>
       <a
@@ -29,7 +33,12 @@ export default function LessonCard({ lesson, deleteLesson }: ModalProps) {
             />
           </svg>
 
-          <h3 className="text-3xl font-bold sm:text-4xl">{lesson.title}</h3>
+          <h3 className="text-xl font-bold sm:text-xl">{lesson.title}</h3>
+          <PencilSquareIcon
+            className="h-6 w-6 text-gray-500 ml-auto"
+            onClick={() => setOpen(true)}
+          />
+          {open && <EditLessonModal setOpen={setOpen} lesson={lesson} />}
           <TrashIcon
             className="h-6 w-6 text-gray-500 ml-auto"
             onClick={() => deleteLesson(lesson.id)}
